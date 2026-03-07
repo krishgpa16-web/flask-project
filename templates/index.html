@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ML Algorithms — Linear Regression & Random Forest</title>
+  <link rel="stylesheet" href="static/index.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="noise"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <span class="nav__logo">ML<span class="accent">CORE</span></span>
+    <ul class="nav__links">
+      <li><a href="#linear">Linear Regression</a></li>
+      <li><a href="#forest">Random Forest</a></li>
+      <li><a href="#compare">Compare</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__grid"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow"><span class="dot"></span> Machine Learning Foundations</p>
+      <h1 class="hero__title">
+        Two Algorithms.<br/>
+        <span class="hero__outline">Infinite Power.</span>
+      </h1>
+      <p class="hero__sub">
+        Decode the mathematics, intuition, and real-world mechanics behind 
+        <strong>Linear Regression</strong> and <strong>Random Forest</strong> — 
+        two cornerstones of modern predictive modeling.
+      </p>
+      <div class="hero__ctas">
+        <a href="#linear" class="btn btn--primary">Explore Algorithms ↓</a>
+        <a href="#compare" class="btn btn--ghost">View Comparison</a>
+      </div>
+    </div>
+    <div class="hero__stats">
+      <div class="stat">
+        <span class="stat__num">1805</span>
+        <span class="stat__label">Year Regression Originated</span>
+      </div>
+      <div class="stat__bar"></div>
+      <div class="stat">
+        <span class="stat__num">2001</span>
+        <span class="stat__label">Random Forest Introduced</span>
+      </div>
+      <div class="stat__bar"></div>
+      <div class="stat">
+        <span class="stat__num">∞</span>
+        <span class="stat__label">Real-World Applications</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- LINEAR REGRESSION -->
+  <section class="algo" id="linear">
+    <div class="algo__index">01</div>
+    <div class="algo__inner">
+      <div class="algo__text">
+        <span class="algo__tag">Supervised Learning · Regression</span>
+        <h2 class="algo__title">Linear<br/><em>Regression</em></h2>
+        <p class="algo__desc">
+          Linear Regression models the relationship between a dependent variable and one or more independent variables
+          by fitting a straight line — or hyperplane — through the data. It minimizes the sum of squared residuals
+          to find the best-fit parameters, making it one of the most interpretable models in all of statistics.
+        </p>
+
+        <div class="formula-block">
+          <span class="formula-block__label">Core Equation</span>
+          <div class="formula">ŷ = β₀ + β₁x₁ + β₂x₂ + ··· + βₙxₙ + ε</div>
+          <p class="formula-block__note">where β are coefficients learned by OLS and ε is the error term</p>
+        </div>
+
+        <ul class="pillars">
+          <li class="pillar">
+            <span class="pillar__num">01</span>
+            <div>
+              <h4>Ordinary Least Squares</h4>
+              <p>Minimizes Σ(yᵢ − ŷᵢ)² — the sum of squared differences between observed and predicted values.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num">02</span>
+            <div>
+              <h4>Key Assumptions</h4>
+              <p>Linearity, independence of errors, homoscedasticity, no multicollinearity, normality of residuals.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num">03</span>
+            <div>
+              <h4>Regularization Variants</h4>
+              <p>Ridge (L2), Lasso (L1), and ElasticNet add penalty terms to prevent overfitting on high-dimensional data.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num">04</span>
+            <div>
+              <h4>Evaluation Metrics</h4>
+              <p>R² score, Mean Squared Error (MSE), Root MSE, and Mean Absolute Error (MAE) quantify model fit.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="algo__visual" id="linearVisual">
+        <div class="visual-card">
+          <div class="visual-card__header">
+            <span>scatter_plot.py</span>
+            <span class="badge badge--blue">LIVE DEMO</span>
+          </div>
+          <div class="chart-area" id="lrChart">
+            <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <line x1="30" y1="10" x2="30" y2="170" stroke="#1e2a3a" stroke-width="1"/>
+              <line x1="30" y1="170" x2="290" y2="170" stroke="#1e2a3a" stroke-width="1"/>
+              <line x1="30" y1="130" x2="290" y2="130" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="30" y1="90" x2="290" y2="90" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="30" y1="50" x2="290" y2="50" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="95" y1="10" x2="95" y2="170" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="160" y1="10" x2="160" y2="170" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <line x1="225" y1="10" x2="225" y2="170" stroke="#1e2a3a" stroke-width="0.5" stroke-dasharray="3,3"/>
+              <!-- Data points -->
+              <circle cx="45" cy="155" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="60" cy="148" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="78" cy="140" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="95" cy="132" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="110" cy="122" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="128" cy="118" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="145" cy="108" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="160" cy="98" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="178" cy="90" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="195" cy="82" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="210" cy="72" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="228" cy="60" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="245" cy="52" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="262" cy="42" r="3" fill="#00e5ff" opacity="0.8"/>
+              <circle cx="278" cy="32" r="3" fill="#00e5ff" opacity="0.8"/>
+              <!-- Noise scatter -->
+              <circle cx="55" cy="142" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="88" cy="145" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="120" cy="110" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="155" cy="115" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="175" cy="80" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="205" cy="88" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="240" cy="48" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <circle cx="270" cy="55" r="2.5" fill="#00e5ff" opacity="0.4"/>
+              <!-- Best fit line -->
+              <line x1="35" y1="162" x2="285" y2="25" stroke="#ff6b35" stroke-width="2" stroke-linecap="round" class="fit-line"/>
+              <!-- Residual lines -->
+              <line x1="88" y1="145" x2="88" y2="137" stroke="#ff6b35" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+              <line x1="155" y1="115" x2="155" y2="106" stroke="#ff6b35" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+              <line x1="205" y1="88" x2="205" y2="79" stroke="#ff6b35" stroke-width="1" stroke-dasharray="2,2" opacity="0.6"/>
+              <!-- Axis labels -->
+              <text x="155" y="188" fill="#4a6070" font-size="9" font-family="Space Mono" text-anchor="middle">Feature X</text>
+              <text x="14" y="95" fill="#4a6070" font-size="9" font-family="Space Mono" text-anchor="middle" transform="rotate(-90 14 95)">Target Y</text>
+            </svg>
+          </div>
+          <div class="metrics-row">
+            <div class="metric"><span class="metric__val">0.94</span><span class="metric__key">R² Score</span></div>
+            <div class="metric"><span class="metric__val">0.12</span><span class="metric__key">MSE</span></div>
+            <div class="metric"><span class="metric__val">0.34</span><span class="metric__key">MAE</span></div>
+          </div>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h5 class="pros__title">✓ Strengths</h5>
+            <ul>
+              <li>Highly interpretable coefficients</li>
+              <li>Fast training & inference</li>
+              <li>Works well on linearly separable data</li>
+              <li>Low variance, good for small datasets</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h5 class="cons__title">✗ Limitations</h5>
+            <ul>
+              <li>Assumes linear relationships</li>
+              <li>Sensitive to outliers</li>
+              <li>Poor on complex, non-linear data</li>
+              <li>Requires feature scaling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">
+    <span>— — —</span>
+    <span class="divider__label">ALGORITHM 02</span>
+    <span>— — —</span>
+  </div>
+
+  <!-- RANDOM FOREST -->
+  <section class="algo algo--forest" id="forest">
+    <div class="algo__index">02</div>
+    <div class="algo__inner algo__inner--reverse">
+
+      <div class="algo__visual">
+        <div class="visual-card">
+          <div class="visual-card__header">
+            <span>forest_model.py</span>
+            <span class="badge badge--green">ENSEMBLE</span>
+          </div>
+
+          <div class="tree-diagram">
+            <svg viewBox="0 0 300 210" xmlns="http://www.w3.org/2000/svg">
+              <!-- Tree 1 -->
+              <g opacity="0.5">
+                <circle cx="50" cy="25" r="12" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+                <text x="50" y="29" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">x₁&lt;3</text>
+                <line x1="40" y1="35" x2="25" y2="55" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <line x1="60" y1="35" x2="75" y2="55" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <circle cx="25" cy="65" r="9" fill="none" stroke="#22c55e" stroke-width="1"/>
+                <circle cx="75" cy="65" r="9" fill="none" stroke="#22c55e" stroke-width="1"/>
+                <text x="25" y="68" fill="#22c55e" font-size="6" text-anchor="middle" font-family="Space Mono">x₂&lt;1</text>
+                <text x="75" y="68" fill="#22c55e" font-size="6" text-anchor="middle" font-family="Space Mono">x₃&lt;5</text>
+                <line x1="18" y1="73" x2="12" y2="88" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <line x1="32" y1="73" x2="38" y2="88" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <rect x="5" y="88" width="16" height="12" rx="3" fill="#166534" stroke="#22c55e" stroke-width="1"/>
+                <rect x="31" y="88" width="16" height="12" rx="3" fill="#7f1d1d" stroke="#ef4444" stroke-width="1"/>
+                <text x="13" y="97" fill="#22c55e" font-size="6" text-anchor="middle" font-family="Space Mono">YES</text>
+                <text x="39" y="97" fill="#ef4444" font-size="6" text-anchor="middle" font-family="Space Mono">NO</text>
+              </g>
+
+              <!-- Tree 2 (main) -->
+              <g>
+                <circle cx="150" cy="20" r="14" fill="#0d1f17" stroke="#22c55e" stroke-width="2"/>
+                <text x="150" y="24" fill="#22c55e" font-size="7.5" text-anchor="middle" font-family="Space Mono">x₂&lt;5</text>
+                <line x1="138" y1="32" x2="110" y2="58" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+                <line x1="162" y1="32" x2="190" y2="58" stroke="#22c55e" stroke-width="1.5" opacity="0.7"/>
+                <circle cx="108" cy="68" r="12" fill="#0d1f17" stroke="#22c55e" stroke-width="1.5"/>
+                <circle cx="192" cy="68" r="12" fill="#0d1f17" stroke="#22c55e" stroke-width="1.5"/>
+                <text x="108" y="72" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">x₁&lt;2</text>
+                <text x="192" y="72" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">x₃&lt;7</text>
+                <line x1="98" y1="79" x2="82" y2="100" stroke="#22c55e" stroke-width="1" opacity="0.7"/>
+                <line x1="118" y1="79" x2="132" y2="100" stroke="#22c55e" stroke-width="1" opacity="0.7"/>
+                <line x1="182" y1="79" x2="165" y2="100" stroke="#22c55e" stroke-width="1" opacity="0.7"/>
+                <line x1="202" y1="79" x2="218" y2="100" stroke="#22c55e" stroke-width="1" opacity="0.7"/>
+                <rect x="70" y="100" width="24" height="14" rx="4" fill="#166534" stroke="#22c55e" stroke-width="1.5"/>
+                <rect x="120" y="100" width="24" height="14" rx="4" fill="#7f1d1d" stroke="#ef4444" stroke-width="1.5"/>
+                <rect x="153" y="100" width="24" height="14" rx="4" fill="#166534" stroke="#22c55e" stroke-width="1.5"/>
+                <rect x="206" y="100" width="24" height="14" rx="4" fill="#166534" stroke="#22c55e" stroke-width="1.5"/>
+                <text x="82" y="110" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">YES</text>
+                <text x="132" y="110" fill="#ef4444" font-size="7" text-anchor="middle" font-family="Space Mono">NO</text>
+                <text x="165" y="110" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">YES</text>
+                <text x="218" y="110" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">YES</text>
+              </g>
+
+              <!-- Tree 3 -->
+              <g opacity="0.5">
+                <circle cx="265" cy="25" r="12" fill="none" stroke="#22c55e" stroke-width="1.5"/>
+                <text x="265" y="29" fill="#22c55e" font-size="7" text-anchor="middle" font-family="Space Mono">x₃&lt;4</text>
+                <line x1="255" y1="35" x2="240" y2="55" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <line x1="275" y1="35" x2="285" y2="55" stroke="#22c55e" stroke-width="1" opacity="0.6"/>
+                <circle cx="240" cy="65" r="9" fill="none" stroke="#22c55e" stroke-width="1"/>
+                <circle cx="285" cy="65" r="9" fill="none" stroke="#22c55e" stroke-width="1"/>
+                <text x="240" y="68" fill="#22c55e" font-size="6" text-anchor="middle" font-family="Space Mono">x₁&lt;6</text>
+                <text x="285" y="68" fill="#22c55e" font-size="6" text-anchor="middle" font-family="Space Mono">x₂&lt;2</text>
+              </g>
+
+              <!-- Vote aggregation arrow -->
+              <text x="150" y="140" fill="#4a6070" font-size="8" text-anchor="middle" font-family="Space Mono">MAJORITY VOTE / AVERAGE</text>
+              <line x1="80" y1="120" x2="140" y2="150" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+              <line x1="150" y1="120" x2="150" y2="150" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+              <line x1="218" y1="120" x2="160" y2="150" stroke="#22c55e" stroke-width="1" stroke-dasharray="3,2" opacity="0.5"/>
+
+              <rect x="100" y="158" width="100" height="22" rx="5" fill="#0a2918" stroke="#22c55e" stroke-width="2"/>
+              <text x="150" y="173" fill="#22c55e" font-size="9" text-anchor="middle" font-family="Space Mono" font-weight="bold">FINAL PREDICTION</text>
+            </svg>
+          </div>
+
+          <div class="metrics-row">
+            <div class="metric"><span class="metric__val" style="color:#22c55e">0.97</span><span class="metric__key">Accuracy</span></div>
+            <div class="metric"><span class="metric__val" style="color:#22c55e">500</span><span class="metric__key">Trees</span></div>
+            <div class="metric"><span class="metric__val" style="color:#22c55e">OOB</span><span class="metric__key">Validation</span></div>
+          </div>
+        </div>
+
+        <div class="pros-cons">
+          <div class="pros">
+            <h5 class="pros__title">✓ Strengths</h5>
+            <ul>
+              <li>Handles non-linear relationships</li>
+              <li>Robust to outliers & noise</li>
+              <li>Built-in feature importance</li>
+              <li>Reduces overfitting via bagging</li>
+            </ul>
+          </div>
+          <div class="cons">
+            <h5 class="cons__title">✗ Limitations</h5>
+            <ul>
+              <li>Less interpretable (black-box)</li>
+              <li>Higher memory & compute cost</li>
+              <li>Slower predictions at scale</li>
+              <li>Can overfit on very noisy data</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="algo__text">
+        <span class="algo__tag" style="color:#22c55e; border-color:#22c55e22; background:#0a2918;">Supervised Learning · Ensemble</span>
+        <h2 class="algo__title" style="color:#22c55e;">Random<br/><em>Forest</em></h2>
+        <p class="algo__desc">
+          Random Forest is an ensemble method that builds hundreds of Decision Trees on random subsets of data and features,
+          then aggregates their predictions via majority vote (classification) or averaging (regression).
+          Introduced by Leo Breiman in 2001, it remains one of the most powerful out-of-the-box algorithms in ML.
+        </p>
+
+        <div class="formula-block" style="border-color:#22c55e33; background:#0a1f13;">
+          <span class="formula-block__label" style="color:#22c55e;">Prediction Formula</span>
+          <div class="formula" style="color:#22c55e;">ŷ = (1/B) Σᵦ hᵦ(x)</div>
+          <p class="formula-block__note">B = number of trees, hᵦ = individual tree prediction</p>
+        </div>
+
+        <ul class="pillars">
+          <li class="pillar">
+            <span class="pillar__num" style="color:#22c55e; border-color:#22c55e33;">01</span>
+            <div>
+              <h4>Bootstrap Aggregation (Bagging)</h4>
+              <p>Each tree is trained on a random bootstrap sample of the training data, reducing variance.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num" style="color:#22c55e; border-color:#22c55e33;">02</span>
+            <div>
+              <h4>Feature Randomness</h4>
+              <p>At each split, only a random subset of √p features are considered, decorrelating the trees.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num" style="color:#22c55e; border-color:#22c55e33;">03</span>
+            <div>
+              <h4>Out-of-Bag (OOB) Error</h4>
+              <p>~37% of samples are left out per tree, enabling free cross-validation without extra splits.</p>
+            </div>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num" style="color:#22c55e; border-color:#22c55e33;">04</span>
+            <div>
+              <h4>Feature Importance</h4>
+              <p>Mean Decrease in Impurity (MDI) or permutation importance ranks predictive features automatically.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON TABLE -->
+  <section class="compare" id="compare">
+    <div class="compare__header">
+      <p class="compare__eyebrow">Side by Side</p>
+      <h2 class="compare__title">Algorithm Comparison</h2>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th><span class="th-accent th-accent--blue">Linear Regression</span></th>
+            <th><span class="th-accent th-accent--green">Random Forest</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Type</td>
+            <td>Parametric, Linear</td>
+            <td>Non-parametric, Ensemble</td>
+          </tr>
+          <tr>
+            <td>Interpretability</td>
+            <td>⭐⭐⭐⭐⭐ Very High</td>
+            <td>⭐⭐ Low (black-box)</td>
+          </tr>
+          <tr>
+            <td>Training Speed</td>
+            <td>⚡ Very Fast</td>
+            <td>🐢 Moderate to Slow</td>
+          </tr>
+          <tr>
+            <td>Handles Non-linearity</td>
+            <td>✗ No</td>
+            <td>✓ Yes</td>
+          </tr>
+          <tr>
+            <td>Outlier Sensitivity</td>
+            <td>High</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td>Feature Scaling Needed</td>
+            <td>✓ Yes</td>
+            <td>✗ No</td>
+          </tr>
+          <tr>
+            <td>Overfitting Risk</td>
+            <td>Low (underfitting risk)</td>
+            <td>Moderate (controllable)</td>
+          </tr>
+          <tr>
+            <td>Best Used For</td>
+            <td>Linear trends, interpretability</td>
+            <td>Complex patterns, tabular data</td>
+          </tr>
+          <tr>
+            <td>Common Use Cases</td>
+            <td>House prices, sales forecast</td>
+            <td>Fraud detection, classification</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="usecases">
+    <h2 class="usecases__title">Real-World Applications</h2>
+    <div class="usecase-grid">
+      <div class="usecase-card usecase-card--blue">
+        <span class="usecase-card__algo">Linear Regression</span>
+        <h3>🏠 House Price Prediction</h3>
+        <p>Predicts property value based on square footage, location, and amenities using continuous feature weights.</p>
+      </div>
+      <div class="usecase-card usecase-card--blue">
+        <span class="usecase-card__algo">Linear Regression</span>
+        <h3>📈 Stock Price Forecasting</h3>
+        <p>Models linear trends in time-series financial data; commonly used as a baseline for financial analysts.</p>
+      </div>
+      <div class="usecase-card usecase-card--green">
+        <span class="usecase-card__algo">Random Forest</span>
+        <h3>💳 Fraud Detection</h3>
+        <p>Identifies fraudulent transactions by learning complex non-linear patterns across hundreds of features.</p>
+      </div>
+      <div class="usecase-card usecase-card--green">
+        <span class="usecase-card__algo">Random Forest</span>
+        <h3>🏥 Medical Diagnosis</h3>
+        <p>Classifies diseases and predicts outcomes using patient records, labs, and imaging features robustly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="nav__logo">ML<span class="accent">CORE</span></span>
+      <p>Built to make machine learning concepts accessible and beautiful.</p>
+      <span class="footer__copy">© 2025 ML CORE · All rights reserved</span>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor glow effect
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', (e) => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.algo, .compare, .usecases, .pillar, .usecase-card').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
